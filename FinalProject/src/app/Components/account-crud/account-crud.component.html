@@ -1,3 +1,51 @@
 <ul>
-    <li *ngFor="let account of accounts">{{accounts | json}}</li>
+    <li *ngFor="let account of accounts">
+        Account ID: {{account.accountId}}, Name: {{account.customer?.name}}
+        <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button>
+        <!-- <button type="button" (click)="deleteAccount(account)">Delete</button> -->
+    </li>
 </ul>
+
+<button>Add Account</button>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Account Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+          {{currAccount?.accountId}}
+
+          <br>
+
+          <form id="EditAccountForm" [formGroup]="EditAccountForm" (submit)="onSave()">
+
+            <label for="accountType" class="form-label">Account Type</label>
+            <input id="accountType" type="text" formControlName="accountType" class="form-control" [value]="currAccount?.accountType">
+
+            <label for="currAmount" class="form-label">Current Amount</label>
+            <input id="currAmount" type="text" formControlName="currAmount" class="form-control" [value]="currAccount?.currAmount">
+
+            <label for="status" class="form-label">Status</label>
+            <input id="status" type="text" formControlName="status" class="form-control" [value]="currAccount?.status">
+
+            <div class="modal-footer">
+                <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            
+          </form>
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  

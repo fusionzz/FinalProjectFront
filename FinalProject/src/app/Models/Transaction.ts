@@ -1,9 +1,9 @@
 import { Account } from "./Account"
 
 export class Transaction{
-    TransactionId?:number
-    ToAccount?:Account
-    FromAccount?:Account
-    Amount?:number
-    Memo?:string
+    transactionId?:number
+    toAccount?:Account
+    fromAccount?:Account
+    amount?:number
+    memo?:string
 }

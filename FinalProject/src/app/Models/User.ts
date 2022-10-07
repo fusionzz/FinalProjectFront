@@ -1,14 +1,14 @@
 export class User{
-    UserId?:number
-    Username?:string
-    Password?:string
-    Role?:string
-    Name?:string
-    DOB?:Date
-    Address?:string
-    City?:string
-    State?:string
-    Pin?:string
-    Phone?:string
-    Email?:string
+    userId?:number
+    username?:string
+    password?:string
+    role?:string
+    name?:string
+    dob?:Date
+    address?:string
+    city?:string
+    state?:string
+    pin?:string
+    phone?:string
+    email?:string
 }
