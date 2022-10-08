@@ -1,12 +1,15 @@
+<input [(ngModel)]="searchText" id="search" type="text" class="form-control" placeholder="Search for name">
+
+<button class="float-right" data-bs-toggle="modal" data-bs-target="#createModal">Add Account</button>
 <ul>
-    <li *ngFor="let account of accounts">
+    <li *ngFor="let account of accounts" [hidden]="!account.customer?.name?.toLowerCase()?.includes(searchText.toLowerCase())">
         Account ID: {{account.accountId}}, Name: {{account.customer?.name}}
         <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button>
         <!-- <button type="button" (click)="deleteAccount(account)">Delete</button> -->
     </li>
 </ul>
 
-<button>Add Account</button>
+
   
   <!-- Edit Modal -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -23,7 +26,7 @@
 
           <br>
 
-          <form id="EditAccountForm" [formGroup]="EditAccountForm" (submit)="onSave()">
+          <form id="EditAccountForm" [formGroup]="EditAccountForm" (submit)="onEditSave()">
 
             <label for="accountType" class="form-label">Account Type</label>
             <input id="accountType" type="text" formControlName="accountType" class="form-control" [value]="currAccount?.accountType">
@@ -48,4 +51,40 @@
     </div>
   </div>
 
-  
+  <!-- Create Modal -->
+  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Account</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form id="NewAccountForm" [formGroup]="NewAccountForm" (submit)="onCreateSave()">
+
+            <label for="customerName" class="form-label">Customer Name</label>
+            <input id="customerName" type="text" formControlName="customerName" class="form-control">
+
+            <label for="accountType" class="form-label">Account Type</label>
+            <input id="accountType" type="text" formControlName="accountType" class="form-control">
+
+            <label for="currAmount" class="form-label">Current Amount</label>
+            <input id="currAmount" type="text" formControlName="currAmount" class="form-control">
+
+            <label for="status" class="form-label">Status</label>
+            <input id="status" type="text" formControlName="status" class="form-control">
+
+            <div class="modal-footer">
+                <button #closeButton2 type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </div>
+            
+          </form>
+
+
+        </div>
+        
+      </div>
+    </div>
+  </div>

@@ -10,6 +10,7 @@ import { AccountService } from 'src/app/Services/Account/account.service';
 })
 export class AccountCrudComponent implements OnInit {
   @ViewChild("closeButton") closeButton:any
+  @ViewChild("closeButton2") closeButton2:any
 
 
 
@@ -25,6 +26,8 @@ export class AccountCrudComponent implements OnInit {
 
   success = false;
 
+  searchText = ""
+
   EditAccountForm = this.fb.group({
 
     accountType: [""],
@@ -36,6 +39,7 @@ export class AccountCrudComponent implements OnInit {
   NewAccountForm = this.fb.group({
     customerName: [""],
     accountType: [""],
+    currAmount: [0],
     status: [""]
   })
 
@@ -58,8 +62,41 @@ export class AccountCrudComponent implements OnInit {
     })
   }
   }
-  
-  onSave(){
+
+
+  onCreateSave(){
+    this.currAccount = {
+      customer : {
+        username:"string",
+        password:"string",
+        role:"string",
+        name : this.NewAccountForm.value.customerName!,
+        dob: new Date,
+        address:"string",
+        city:"string",
+        state:"string",
+        pin:"string",
+        phone:"string",
+        email:"string"
+      },
+      accountType : this.NewAccountForm.value.accountType!,
+      currAmount : this.NewAccountForm.value.currAmount!,
+      status : this.NewAccountForm.value.status!
+    }
+
+    this.accountService.addAccount(this.currAccount).subscribe(
+      response => {
+        console.log(response)
+        this.getAllAccounts()
+        this.closeButton2.nativeElement.click()
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  onEditSave(){
     if (this.currAccount){
       this.currAccount.accountType = this.EditAccountForm.value.accountType!
       this.currAccount.currAmount = this.EditAccountForm.value.currAmount!

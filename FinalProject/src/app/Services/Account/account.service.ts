@@ -24,6 +24,10 @@ export class AccountService {
     return this.http.delete(environment.url+"Accounts/"+id)
   }
 
+  addAccount(account:Account){
+    return this.http.post(environment.url+"Accounts", account, this.httpOptions)
+  }
+
 
 
 }
