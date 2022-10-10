@@ -31,4 +31,8 @@ export class UserService {
   addUser(user:User){
     return this.http.post(environment.url+"Users", user, this.httpOptions)
   }
+
+  login(username:string, password:string){
+    return this.http.post(environment.url+"Users/login/"+username, '"'+password+'"', this.httpOptions)
+  }
 }

@@ -1,13 +1,22 @@
 <input [(ngModel)]="searchText" id="search" type="text" class="form-control" placeholder="Search for name">
 
 <button class="float-right" data-bs-toggle="modal" data-bs-target="#createModal">Add User</button>
-<ul>
-    <li *ngFor="let user of users" [hidden]="!user.name?.toLowerCase()?.includes(searchText.toLowerCase())">
-        Name: {{user.name}}
-        <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editUser(user)">Edit</button>
-        <!-- <button type="button" (click)="deleteAccount(account)">Delete</button> -->
-    </li>
-</ul>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" [hidden]="!user.name?.toLowerCase()?.includes(searchText.toLowerCase())">
+      <td>{{user.name}}</td>
+      <td><button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editUser(user)">Edit</button></td>
+    </tr>
+  </tbody>
+</table>
+
 
 
   

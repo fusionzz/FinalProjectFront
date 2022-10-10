@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="align-items-center">
+<form id="LoginForm" [formGroup]="LoginForm" (submit)="onLogin()">
+
+    <label for="username" class="form-label">Username</label>
+    <input id="username" type="text" formControlName="username" class="form-control">
+
+    <label for="password" class="form-label">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-control">
+
+    <div *ngIf="error" class="alert alert-danger">
+        Incorrect Login
+    </div>
+
+
+    <button type="submit">Login</button>
+</form>
+
+
+</div>

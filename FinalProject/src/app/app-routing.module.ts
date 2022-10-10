@@ -4,13 +4,16 @@ import { AccountCrudComponent } from './Components/account-crud/account-crud.com
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
 import { UserCrudComponent } from './Components/user-crud/user-crud.component';
+import { AuthService } from './Services/Auth/auth.service';
 
 const routes: Routes = [{
   path: 'accounts',
-  component: AccountCrudComponent
+  component: AccountCrudComponent,
+  canActivate: [AuthService]
 }, {
   path: 'users',
-  component: UserCrudComponent
+  component: UserCrudComponent,
+  canActivate: [AuthService]
 }, {
   path: '',
   component: HomeComponent
