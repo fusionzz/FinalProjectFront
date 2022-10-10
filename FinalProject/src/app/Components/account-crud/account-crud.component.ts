@@ -89,6 +89,7 @@ export class AccountCrudComponent implements OnInit {
         console.log(response)
         this.getAllAccounts()
         this.closeButton2.nativeElement.click()
+        this.NewAccountForm.reset()
       },
       error => {
         console.log(error)
