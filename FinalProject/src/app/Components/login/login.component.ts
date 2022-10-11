@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
         let user = response as User
         sessionStorage.setItem('userId', user.userId?.toString()!)
         sessionStorage.setItem('role', user.role!)
+        sessionStorage.setItem('name',user.name!)
         this.router.navigate(["/accounts"])
       },
       error => {

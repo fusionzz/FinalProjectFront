@@ -13,6 +13,10 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ViewAccountComponent implements OnInit {
   @ViewChild("closeButton") closeButton:any
+  @ViewChild("closeButtonD") closeButtonD:any
+  @ViewChild("closeButtonW") closeButtonW:any
+  @ViewChild("depositAmount") depositAmount:any
+  @ViewChild("withdrawAmount") withdrawAmount:any
 
   constructor(private transactionService:TransactionService, private accountService:AccountService, private location:Location, private fb:FormBuilder) { }
 
@@ -109,11 +113,139 @@ export class ViewAccountComponent implements OnInit {
       response => {
         this.getTransactions(this.currentAccount?.accountId!);
         this.closeButton.nativeElement.click()
+        if (this.currentAccount != undefined){
+        this.currentAccount.currAmount = this.currentAccount?.currAmount! - transaction.amount!
+        }
       }, error => {
         console.log(error)
       }
     )
 
+  }
+
+  deposit(amount:number){
+
+    let transaction:Transaction = {
+      toAccount:{
+        accountId:this.currentAccount?.accountId,
+        customer:{
+          userId:0,
+          username:"string",
+          password:"string",
+          role:"string",
+          name:"string",
+          dob:new Date,
+          address:"string",
+          city:"string",
+          state:"string",
+          pin:"string",
+          phone:"string",
+          email:"string",
+        },
+        accountType:"string",
+        createdAt:new Date,
+        currAmount:0,
+        status:"string",
+      },
+      fromAccount:{
+        accountId:0,
+        customer:{
+          userId:0,
+          username:"string",
+          password:"string",
+          role:"string",
+          name:"string",
+          dob:new Date,
+          address:"string",
+          city:"string",
+          state:"string",
+          pin:"string",
+          phone:"string",
+          email:"string",
+        },
+        accountType:"string",
+        createdAt:new Date,
+        currAmount:0,
+        status:"string",
+      },
+      amount:amount,
+      memo:"Deposit"
+    }
+    console.log(transaction)
+    this.transactionService.newTransaction(transaction).subscribe(
+      response => {
+        this.getTransactions(this.currentAccount?.accountId!);
+        this.closeButtonD.nativeElement.click()
+        if (this.currentAccount != undefined){
+        this.currentAccount.currAmount = this.currentAccount?.currAmount! + transaction.amount!
+        this.depositAmount.value = 0
+        }
+      }, error => {
+        console.log(error)
+      }
+    )
+  }
+
+  withdraw(amount:number){
+    let transaction:Transaction = {
+      toAccount:{
+        accountId:0,
+        customer:{
+          userId:0,
+          username:"string",
+          password:"string",
+          role:"string",
+          name:"string",
+          dob:new Date,
+          address:"string",
+          city:"string",
+          state:"string",
+          pin:"string",
+          phone:"string",
+          email:"string",
+        },
+        accountType:"string",
+        createdAt:new Date,
+        currAmount:0,
+        status:"string",
+      },
+      fromAccount:{
+        accountId:this.currentAccount?.accountId,
+        customer:{
+          userId:0,
+          username:"string",
+          password:"string",
+          role:"string",
+          name:"string",
+          dob:new Date,
+          address:"string",
+          city:"string",
+          state:"string",
+          pin:"string",
+          phone:"string",
+          email:"string",
+        },
+        accountType:"string",
+        createdAt:new Date,
+        currAmount:0,
+        status:"string",
+      },
+      amount:amount,
+      memo:"Withdraw"
+    }
+
+    this.transactionService.newTransaction(transaction).subscribe(
+      response => {
+        this.getTransactions(this.currentAccount?.accountId!);
+        this.closeButtonW.nativeElement.click()
+        if (this.currentAccount != undefined){
+        this.currentAccount.currAmount = this.currentAccount?.currAmount! - transaction.amount!
+        this.withdrawAmount.value = 0
+        }
+      }, error => {
+        console.log(error)
+      }
+    )
   }
 
 

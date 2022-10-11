@@ -76,7 +76,7 @@
       <div class="container-fluid">
         <a class="navbar-brand" routerLink="">Home</a>
         <div *ngIf="isAuth" ngbDropdown class="me-auto">
-          <button type="button" class="nav-link dropdown-toggle" ngbDropdownToggle>Menu</button>
+          <button type="button" class="nav-link btn btn-secondary dropdown-toggle" ngbDropdownToggle>Menu</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem routerLink="accounts">Accounts</button>
             <button *ngIf="isManager" ngbDropdownItem routerLink="users">Users</button>
@@ -84,10 +84,16 @@
         </div>
       </div>
 
-      <div>
-        <a *ngIf="!isAuth" class="btn btn-primary" routerLink="login">Login</a>
+      <div class="container-fluid text-center">
+        <h3 *ngIf="isAuth">Welcome {{name}}!</h3>
+      </div>
+
+      <div *ngIf="!isAuth" class="btn-group" role="group">
+        <a class="btn btn-primary" routerLink="login">Login</a>
+        <a class="btn btn-secondary" routerLink="register">Register</a>
       </div>
       <div>
-        <button *ngIf="isAuth" class="btn btn-primary" (click)="logout()">Logout</button>
+        <button *ngIf="isAuth" class="btn btn-secondary" (click)="logout()">Logout</button>
       </div>
     </nav>
+

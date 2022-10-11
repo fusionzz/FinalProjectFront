@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -8,17 +9,19 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private location:Location) {
     this.router.events.subscribe(
       event => {
         if (event instanceof NavigationStart) {
           this.getAuth()
           this.getManager()
+          this.name = sessionStorage.getItem('name')!
         }
 
         if (event instanceof NavigationEnd) {
           this.getAuth()
           this.getManager()
+          this.name = sessionStorage.getItem('name')!
         }
       }
     )
@@ -32,11 +35,16 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     sessionStorage.clear()
+    if (this.router.url != "/"){
     this.router.navigate([""])
+    }else{
+      window.location.reload()
+    }
   }
 
   isAuth = false
   isManager = false
+  name = ""
 
   getAuth(){
     this.isAuth = sessionStorage.getItem("userId") != null

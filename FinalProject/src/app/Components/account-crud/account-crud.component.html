@@ -1,6 +1,10 @@
 <input *ngIf="isManager" [(ngModel)]="searchText" id="search" type="text" class="form-control" placeholder="Search for name">
 
-<button class="float-right" data-bs-toggle="modal" data-bs-target="#createModal">Add Account</button>
+<div class="mb-3">
+  <button class="float-right btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Add Account</button>
+</div>
+<br>
+<br>
 
 
 <table class="table table-hover table-striped">
@@ -8,6 +12,7 @@
   <tr>
     <th scope="col">Account ID</th>
     <th scope="col">Name on Account</th>
+    <th scope="col">Account Type</th>
     <th scope="col">Amount</th>
     <th scope="col">Edit</th>
     <th scope="col">View Transactions</th>
@@ -17,9 +22,10 @@
   <tr *ngFor="let account of accounts" [hidden]="!account.customer?.name?.toLowerCase()?.includes(searchText.toLowerCase())">
     <td>{{account.accountId}}</td>
     <td>{{account.customer?.name}}</td>
+    <td>{{account.accountType}}</td>
     <td>{{account.currAmount}}</td>
-    <td><button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button></td>
-    <td><button class="btn btn-outline-info" type="button" (click)="viewTransaction(account)">View Transactions</button></td>
+    <td><button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button></td>
+    <td><button class="btn btn-dark" type="button" (click)="viewTransaction(account)">View Transactions</button></td>
   </tr>
 </tbody>
 </table>

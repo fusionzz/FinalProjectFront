@@ -1,0 +1,40 @@
+
+<div class="container-fluid">
+<form id="NewUserForm" [formGroup]="NewUserForm" (submit)="onCreateSave()">
+
+    <label for="username" class="form-label">Username</label>
+    <input id="username" type="text" formControlName="username" class="form-control" [value]>
+
+    <label for="password" class="form-label">Password</label>
+    <input id="password" type="password" formControlName="password" class="form-control" [value]>
+
+    <label for="name" class="form-label">Name</label>
+    <input id="name" type="text" formControlName="name" class="form-control" [value]>
+
+    <label for="dob" class="form-label">Date of birth</label>
+    <input id="dob" #editDate type="date" formControlName="dob" class="form-control">
+
+    <label for="address" class="form-label">Address</label>
+    <input id="address" type="text" formControlName="address" class="form-control" [value]>
+
+    <label for="city" class="form-label">City</label>
+    <input id="city" type="text" formControlName="city" class="form-control" [value]>
+
+    <label for="state" class="form-label">State</label>
+    <input id="state" type="text" formControlName="state" class="form-control" [value]>
+
+    <label for="pin" class="form-label">Pin</label>
+    <input id="pin" type="text" formControlName="pin" class="form-control" [value]>
+
+    <label for="phone" class="form-label">Phone</label>
+    <input id="phone" type="text" formControlName="phone" class="form-control" [value]>
+
+    <label for="email" class="form-label">Email</label>
+    <input id="email" type="text" formControlName="email" class="form-control" [value]>
+
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary">Create Account</button>
+    </div>
+    
+  </form>
+</div>

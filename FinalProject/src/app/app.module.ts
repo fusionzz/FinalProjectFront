@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HomeComponent } from './Components/home/home.component';
 import { ViewAccountComponent } from './Components/view-account/view-account.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ViewAccountComponent } from './Components/view-account/view-account.com
     LoginComponent,
     HomeComponent,
     ViewAccountComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

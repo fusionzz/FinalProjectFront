@@ -33,6 +33,15 @@ export class AccountCrudComponent implements OnInit {
       this.getAccountsById(id)
     }
 
+    if (!this.isManager){
+      this.NewAccountForm.get('customerName')?.disable()
+      let name = sessionStorage.getItem('name')
+      this.NewAccountForm.patchValue({
+        customerName:name
+      })
+
+    }
+
   }
 
   isManager = false
@@ -91,12 +100,19 @@ export class AccountCrudComponent implements OnInit {
 
   onCreateSave(){
     
+    let name = "";
+    if (this.isManager){
+      name = this.NewAccountForm.value.customerName!
+    }else{
+      name= sessionStorage.getItem('name')!
+    }
+
     this.currAccount = {
       customer : {
         username:"string",
         password:"string",
         role:"string",
-        name : this.NewAccountForm.value.customerName!,
+        name : name,
         dob: new Date,
         address:"string",
         city:"string",
@@ -110,10 +126,11 @@ export class AccountCrudComponent implements OnInit {
       status : this.NewAccountForm.value.status!
     }
 
+
     this.accountService.addAccount(this.currAccount).subscribe(
       response => {
         console.log(response)
-        if (sessionStorage.getItem("role")?.toLowerCase() == "manager"){
+        if (this.isManager){
           this.getAllAccounts();
         }
         else{
