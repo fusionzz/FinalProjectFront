@@ -79,7 +79,7 @@
           <button type="button" class="nav-link dropdown-toggle" ngbDropdownToggle>Menu</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button ngbDropdownItem routerLink="accounts">Accounts</button>
-            <button ngbDropdownItem routerLink="users">Users</button>
+            <button *ngIf="isManager" ngbDropdownItem routerLink="users">Users</button>
           </div>
         </div>
       </div>

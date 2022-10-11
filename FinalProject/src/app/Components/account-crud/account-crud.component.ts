@@ -1,5 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Account } from 'src/app/Models/Account';
 import { AccountService } from 'src/app/Services/Account/account.service';
 
@@ -14,11 +16,26 @@ export class AccountCrudComponent implements OnInit {
 
 
 
-  constructor(private accountService:AccountService, private fb:FormBuilder) { }
+  constructor(private accountService:AccountService, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit(): void {
-    this.getAllAccounts();
+    if (sessionStorage.getItem("role")?.toLowerCase() == "manager"){
+      this.isManager = true
+    }
+    else{
+      this.isManager = false
+    }
+    
+    if (this.isManager){
+      this.getAllAccounts()
+    }else{
+      let id:number = +sessionStorage.getItem('userId')!
+      this.getAccountsById(id)
+    }
+
   }
+
+  isManager = false
 
   accounts?:Account[];
 
@@ -52,6 +69,14 @@ export class AccountCrudComponent implements OnInit {
     )
   }
 
+  getAccountsById(id:number){
+    this.accountService.getAccountsById(id).subscribe(
+      response => {
+        this.accounts = response as Account[]
+      }
+    )
+  }
+
   editAccount(account:Account){
     this.currAccount = account;
     if (this.currAccount){
@@ -65,6 +90,7 @@ export class AccountCrudComponent implements OnInit {
 
 
   onCreateSave(){
+    
     this.currAccount = {
       customer : {
         username:"string",
@@ -87,7 +113,13 @@ export class AccountCrudComponent implements OnInit {
     this.accountService.addAccount(this.currAccount).subscribe(
       response => {
         console.log(response)
-        this.getAllAccounts()
+        if (sessionStorage.getItem("role")?.toLowerCase() == "manager"){
+          this.getAllAccounts();
+        }
+        else{
+          let id:number = +sessionStorage.getItem('userId')!
+          this.getAccountsById(id)
+        }
         this.closeButton2.nativeElement.click()
         this.NewAccountForm.reset()
       },
@@ -121,6 +153,11 @@ export class AccountCrudComponent implements OnInit {
         this.getAllAccounts();
       }
     )
+  }
+
+  viewTransaction(account:Account){
+    this.accountService.currentAccount = account
+    this.router.navigate(["viewaccount"])
   }
 
 }

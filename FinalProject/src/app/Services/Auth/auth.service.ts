@@ -21,7 +21,6 @@ export class AuthService {
     this.userService.getUserById(id).subscribe(
       response => {
         let user = response as User
-        console.log(user.role)
         return role == user.role
       },
       error => {

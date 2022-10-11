@@ -1,4 +1,4 @@
-<input [(ngModel)]="searchText" id="search" type="text" class="form-control" placeholder="Search for name">
+<input *ngIf="isManager" [(ngModel)]="searchText" id="search" type="text" class="form-control" placeholder="Search for name">
 
 <button class="float-right" data-bs-toggle="modal" data-bs-target="#createModal">Add Account</button>
 
@@ -10,6 +10,7 @@
     <th scope="col">Name on Account</th>
     <th scope="col">Amount</th>
     <th scope="col">Edit</th>
+    <th scope="col">View Transactions</th>
   </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
     <td>{{account.customer?.name}}</td>
     <td>{{account.currAmount}}</td>
     <td><button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button></td>
+    <td><button class="btn btn-outline-info" type="button" (click)="viewTransaction(account)">View Transactions</button></td>
   </tr>
 </tbody>
 </table>

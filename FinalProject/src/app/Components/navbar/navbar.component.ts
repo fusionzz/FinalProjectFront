@@ -13,10 +13,12 @@ export class NavbarComponent implements OnInit {
       event => {
         if (event instanceof NavigationStart) {
           this.getAuth()
+          this.getManager()
         }
 
         if (event instanceof NavigationEnd) {
           this.getAuth()
+          this.getManager()
         }
       }
     )
@@ -34,9 +36,14 @@ export class NavbarComponent implements OnInit {
   }
 
   isAuth = false
+  isManager = false
 
   getAuth(){
     this.isAuth = sessionStorage.getItem("userId") != null
+  }
+
+  getManager(){
+    this.isManager = sessionStorage.getItem('role')?.toLowerCase() == "manager"
   }
 
 }

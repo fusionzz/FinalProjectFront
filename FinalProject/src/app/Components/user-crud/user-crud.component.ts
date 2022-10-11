@@ -28,6 +28,9 @@ export class UserCrudComponent implements OnInit {
   currUser?:User;
   currDOB?:any;
 
+
+  roles = [ "Customer", "Manager"]
+
   success = false;
 
   searchText = ""
@@ -50,7 +53,7 @@ export class UserCrudComponent implements OnInit {
     userId: [0],
     username: [""],
     password: [""],
-    role: [""],
+    role: ["Customer"],
     name: [""],
     dob: [new Date()],
     address: [""],

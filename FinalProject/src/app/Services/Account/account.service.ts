@@ -12,8 +12,14 @@ export class AccountService {
 
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
 
+  currentAccount?:Account;
+
   getAccounts(){
     return this.http.get(environment.url+"Accounts")
+  }
+
+  getAccountsById(id:number){
+    return this.http.get(environment.url+"Accounts/User/"+id)
   }
 
   editAccountSubmit(account:Account){
