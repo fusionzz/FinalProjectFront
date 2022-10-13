@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/Services/User/user.service';
@@ -19,18 +19,20 @@ export class RegisterComponent implements OnInit {
 
   NewUserForm = this.fb.group({
     userId: [0],
-    username: [""],
-    password: [""],
+    username: ["", [Validators.required]],
+    password: ["", [Validators.required]],
     role: ["Customer"],
-    name: [""],
-    dob: [new Date()],
-    address: [""],
-    city: [""],
-    state: [""],
-    pin: [""],
-    phone: [""],
-    email: [""]
+    name: ["", [Validators.required]],
+    dob: [new Date(), [Validators.required]],
+    address: ["", [Validators.required]],
+    city: ["", [Validators.required]],
+    state: ["", [Validators.required]],
+    pin: ["", [Validators.required]],
+    phone: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]]
   })
+
+  isError = false
 
   onCreateSave(){
     let user:User = {
@@ -48,6 +50,7 @@ export class RegisterComponent implements OnInit {
     }
     this.userService.addUser(user).subscribe(
       response => {
+        this.isError = false
         let newUser = response as User
         sessionStorage.setItem('userId', newUser.userId?.toString()!)
         sessionStorage.setItem('role', newUser.role!)
@@ -56,6 +59,7 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         console.log(error)
+        this.isError = true
       }
     )
   }

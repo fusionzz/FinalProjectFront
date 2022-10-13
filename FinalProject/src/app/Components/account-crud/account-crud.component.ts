@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/Models/Account';
 import { AccountService } from 'src/app/Services/Account/account.service';
@@ -56,17 +56,17 @@ export class AccountCrudComponent implements OnInit {
 
   EditAccountForm = this.fb.group({
 
-    accountType: [""],
-    currAmount: [0],
-    status: [""]
+    accountType: ["", [Validators.required]],
+    currAmount: [0, [Validators.required]],
+    status: ["", [Validators.required]]
 
   })
 
   NewAccountForm = this.fb.group({
     customerName: [""],
-    accountType: [""],
-    currAmount: [0],
-    status: [""]
+    accountType: ["", [Validators.required]],
+    currAmount: [0, [Validators.required]],
+    status: ["", [Validators.required]]
   })
 
 
@@ -97,6 +97,9 @@ export class AccountCrudComponent implements OnInit {
   }
   }
 
+
+  editError = false
+  createError = false
 
   onCreateSave(){
     
@@ -139,9 +142,11 @@ export class AccountCrudComponent implements OnInit {
         }
         this.closeButton2.nativeElement.click()
         this.NewAccountForm.reset()
+        this.createError=false
       },
       error => {
         console.log(error)
+        this.createError=true
       }
     )
   }
@@ -157,9 +162,11 @@ export class AccountCrudComponent implements OnInit {
       response => {
         console.log(response)
         this.closeButton.nativeElement.click()
+        this.editError=false
       },
       error => {
         console.log(error)
+        this.editError=true
       }
     )
   }

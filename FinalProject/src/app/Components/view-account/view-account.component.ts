@@ -32,6 +32,10 @@ export class ViewAccountComponent implements OnInit {
   transactions?:Transaction[];
   inSystem = true
 
+  createError = false
+  depositError = false
+  withdrawError = false
+
   NewTransactionForm = this.fb.group({
     toAccount:[0],
     fromAccount:[this.currentAccount?.accountId],
@@ -116,8 +120,10 @@ export class ViewAccountComponent implements OnInit {
         if (this.currentAccount != undefined){
         this.currentAccount.currAmount = this.currentAccount?.currAmount! - transaction.amount!
         }
+        this.createError = false
       }, error => {
         console.log(error)
+        this.createError = true
       }
     )
 
@@ -180,8 +186,10 @@ export class ViewAccountComponent implements OnInit {
         this.currentAccount.currAmount = this.currentAccount?.currAmount! + transaction.amount!
         this.depositAmount.value = 0
         }
+        this.depositError = false
       }, error => {
         console.log(error)
+        this.depositError = true
       }
     )
   }
@@ -242,8 +250,10 @@ export class ViewAccountComponent implements OnInit {
         this.currentAccount.currAmount = this.currentAccount?.currAmount! - transaction.amount!
         this.withdrawAmount.value = 0
         }
+        this.withdrawError = false
       }, error => {
         console.log(error)
+        this.withdrawError = true
       }
     )
   }

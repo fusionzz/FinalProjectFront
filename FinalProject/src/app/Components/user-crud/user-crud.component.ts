@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/Models/User';
 import { UserService } from 'src/app/Services/User/user.service';
 import { DatePipe } from '@angular/common';
@@ -35,33 +35,36 @@ export class UserCrudComponent implements OnInit {
 
   searchText = ""
 
+  editError = false
+  createError = false
+
   EditUserForm = this.fb.group({
 
-    username: [""],
+    username: ["", [Validators.required]],
     role: [""],
-    name: [""],
-    dob: [new Date()],
-    address: [""],
-    city: [""],
-    state: [""],
-    pin: [""],
-    phone: [""],
-    email: [""]
+    name: ["", [Validators.required]],
+    dob: [new Date(), [Validators.required]],
+    address: ["", [Validators.required]],
+    city: ["", [Validators.required]],
+    state: ["", [Validators.required]],
+    pin: ["", [Validators.required]],
+    phone: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]]
   })
 
   NewUserForm = this.fb.group({
     userId: [0],
-    username: [""],
-    password: [""],
+    username: ["", [Validators.required]],
+    password: ["", [Validators.required]],
     role: ["Customer"],
-    name: [""],
-    dob: [new Date()],
-    address: [""],
-    city: [""],
-    state: [""],
-    pin: [""],
-    phone: [""],
-    email: [""]
+    name: ["", [Validators.required]],
+    dob: [new Date(), [Validators.required]],
+    address: ["", [Validators.required]],
+    city: ["", [Validators.required]],
+    state: ["", [Validators.required]],
+    pin: ["", [Validators.required]],
+    phone: ["", [Validators.required]],
+    email: ["", [Validators.required, Validators.email]]
   })
   
 
@@ -147,9 +150,11 @@ export class UserCrudComponent implements OnInit {
         console.log(response)
         this.closeButton2.nativeElement.click()
         this.NewUserForm.reset()
+        this.createError = false
       },
       error => {
         console.log(error)
+        this.createError = true
       }
     )
     } 
@@ -174,11 +179,14 @@ export class UserCrudComponent implements OnInit {
     this.userService.editUserSubmit(this.currUser).subscribe(
       response => {
         console.log(response)
+        this.getAllUsers()
         this.closeButton.nativeElement.click()
+        this.editError = false
         
       },
       error => {
         console.log(error)
+        this.editError = true
       }
     )
   }

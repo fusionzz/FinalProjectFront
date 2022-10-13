@@ -46,37 +46,88 @@
 
             <label for="username" class="form-label">Username</label>
             <input id="username" type="text" formControlName="username" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.username.invalid && (EditUserForm.controls.username.touched || EditUserForm.controls.username.dirty)">
+              <div class="alert alert-danger">
+                Please enter a username
+              </div>
+            </div>
 
             <label for="role" class="form-label">Role</label>
-            <input id="role" type="text" formControlName="role" class="form-control" [value]>
+            <select id="role" type="text" formControlName="role" class="form-select">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            </select>
 
             <label for="name" class="form-label">Name</label>
             <input id="name" type="text" formControlName="name" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.name.invalid && (EditUserForm.controls.name.touched || EditUserForm.controls.name.dirty)">
+              <div class="alert alert-danger">
+                Please enter a name
+              </div>
+            </div>
 
             <label for="dob" class="form-label">Date of birth</label>
-            <input id="dob" #editDate type="date" formControlName="dob" class="form-control" [ngModel]="currUser?.dob | date:'yyyy-MM-dd'" value="{{currUser?.dob | date:'yyyy-MM-dd'">
+            <input id="dob" #editDate type="date" formControlName="dob" class="form-control" [ngModel]="currUser?.dob | date:'yyyy-MM-dd'">
+            <div *ngIf="EditUserForm.controls.dob.invalid && (EditUserForm.controls.dob.touched || EditUserForm.controls.dob.dirty)">
+              <div class="alert alert-danger">
+                Please enter a date of birth
+              </div>
+            </div>
 
             <label for="address" class="form-label">Address</label>
             <input id="address" type="text" formControlName="address" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.address.invalid && (EditUserForm.controls.address.touched || EditUserForm.controls.address.dirty)">
+              <div class="alert alert-danger">
+                Please enter an address
+              </div>
+            </div>
 
             <label for="city" class="form-label">City</label>
             <input id="city" type="text" formControlName="city" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.city.invalid && (EditUserForm.controls.city.touched || EditUserForm.controls.city.dirty)">
+              <div class="alert alert-danger">
+                Please enter a city
+              </div>
+            </div>
 
             <label for="state" class="form-label">State</label>
             <input id="state" type="text" formControlName="state" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.state.invalid && (EditUserForm.controls.state.touched || EditUserForm.controls.state.dirty)">
+              <div class="alert alert-danger">
+                Please enter a state
+              </div>
+            </div>
 
             <label for="pin" class="form-label">Pin</label>
             <input id="pin" type="text" formControlName="pin" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.pin.invalid && (EditUserForm.controls.pin.touched || EditUserForm.controls.pin.dirty)">
+              <div class="alert alert-danger">
+                Please enter a pin
+              </div>
+            </div>
 
             <label for="phone" class="form-label">Phone</label>
             <input id="phone" type="text" formControlName="phone" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.phone.invalid && (EditUserForm.controls.phone.touched || EditUserForm.controls.phone.dirty)">
+              <div class="alert alert-danger">
+                Please enter a phone number
+              </div>
+            </div>
 
             <label for="email" class="form-label">Email</label>
             <input id="email" type="text" formControlName="email" class="form-control" [value]>
+            <div *ngIf="EditUserForm.controls.email.invalid && (EditUserForm.controls.email.touched || EditUserForm.controls.email.dirty)">
+              <div class="alert alert-danger">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div *ngIf="editError" class="alert alert-danger text-center mt-3">
+              There was an error submitting the form
+            </div>
 
             <div class="modal-footer">
-                <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button #closeButton (click)="EditUserForm.clearValidators" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!EditUserForm.valid">Save changes</button>
             </div>
             
           </form>
@@ -102,9 +153,19 @@
 
             <label for="username" class="form-label">Username</label>
             <input id="username" type="text" formControlName="username" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.username.invalid && (NewUserForm.controls.username.touched || NewUserForm.controls.username.dirty)">
+              <div class="alert alert-danger">
+                Please enter a username
+              </div>
+            </div>
 
             <label for="password" class="form-label">Password</label>
             <input id="password" type="password" formControlName="password" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.name.invalid && (NewUserForm.controls.name.touched || NewUserForm.controls.name.dirty)">
+              <div class="alert alert-danger">
+                Please enter a name
+              </div>
+            </div>
 
             <label for="role" class="form-label">Role</label>
             <select id="role" type="text" formControlName="role" class="form-select">
@@ -113,31 +174,75 @@
 
             <label for="name" class="form-label">Name</label>
             <input id="name" type="text" formControlName="name" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.name.invalid && (NewUserForm.controls.name.touched || NewUserForm.controls.name.dirty)">
+              <div class="alert alert-danger">
+                Please enter a name
+              </div>
+            </div>
 
             <label for="dob" class="form-label">Date of birth</label>
             <input id="dob" #editDate type="date" formControlName="dob" class="form-control">
+            <div *ngIf="NewUserForm.controls.dob.invalid && (NewUserForm.controls.dob.touched || NewUserForm.controls.dob.dirty)">
+              <div class="alert alert-danger">
+                Please enter a date of birth
+              </div>
+            </div>
 
             <label for="address" class="form-label">Address</label>
             <input id="address" type="text" formControlName="address" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.address.invalid && (NewUserForm.controls.address.touched || NewUserForm.controls.address.dirty)">
+              <div class="alert alert-danger">
+                Please enter an address
+              </div>
+            </div>
 
             <label for="city" class="form-label">City</label>
             <input id="city" type="text" formControlName="city" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.city.invalid && (NewUserForm.controls.city.touched || NewUserForm.controls.city.dirty)">
+              <div class="alert alert-danger">
+                Please enter a city
+              </div>
+            </div>
 
             <label for="state" class="form-label">State</label>
             <input id="state" type="text" formControlName="state" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.state.invalid && (NewUserForm.controls.state.touched || NewUserForm.controls.state.dirty)">
+              <div class="alert alert-danger">
+                Please enter a state
+              </div>
+            </div>
 
             <label for="pin" class="form-label">Pin</label>
             <input id="pin" type="text" formControlName="pin" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.pin.invalid && (NewUserForm.controls.pin.touched || NewUserForm.controls.pin.dirty)">
+              <div class="alert alert-danger">
+                Please enter a pin
+              </div>
+            </div>
 
             <label for="phone" class="form-label">Phone</label>
             <input id="phone" type="text" formControlName="phone" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.phone.invalid && (NewUserForm.controls.phone.touched || NewUserForm.controls.phone.dirty)">
+              <div class="alert alert-danger">
+                Please enter a phone number
+              </div>
+            </div>
 
             <label for="email" class="form-label">Email</label>
             <input id="email" type="text" formControlName="email" class="form-control" [value]>
+            <div *ngIf="NewUserForm.controls.email.invalid && (NewUserForm.controls.email.touched || NewUserForm.controls.email.dirty)">
+              <div class="alert alert-danger">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div *ngIf="createError" class="alert alert-danger text-center mt-3">
+              There was an error submitting the form
+            </div>
 
             <div class="modal-footer">
                 <button #closeButton2 type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Create Account</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!NewUserForm.valid">Create Account</button>
             </div>
             
           </form>

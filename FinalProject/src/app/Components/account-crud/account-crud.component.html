@@ -23,7 +23,7 @@
     <td>{{account.accountId}}</td>
     <td>{{account.customer?.name}}</td>
     <td>{{account.accountType}}</td>
-    <td>{{account.currAmount}}</td>
+    <td>{{account.currAmount | currency}}</td>
     <td><button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#editModal" (click)="editAccount(account)">Edit</button></td>
     <td><button class="btn btn-dark" type="button" (click)="viewTransaction(account)">View Transactions</button></td>
   </tr>
@@ -52,16 +52,35 @@
 
             <label for="accountType" class="form-label">Account Type</label>
             <input id="accountType" type="text" formControlName="accountType" class="form-control" [value]="currAccount?.accountType">
+            <div *ngIf="EditAccountForm.controls.accountType.invalid && (EditAccountForm.controls.accountType.touched || EditAccountForm.controls.accountType.dirty)">
+              <div class="alert alert-danger">
+                Please enter an account type
+              </div>
+            </div>
 
             <label for="currAmount" class="form-label">Current Amount</label>
             <input id="currAmount" type="number" formControlName="currAmount" class="form-control" [value]="currAccount?.currAmount">
+            <div *ngIf="EditAccountForm.controls.currAmount.invalid && (EditAccountForm.controls.currAmount.touched || EditAccountForm.controls.currAmount.dirty)">
+              <div class="alert alert-danger">
+                Please enter an amount
+              </div>
+            </div>
 
             <label for="status" class="form-label">Status</label>
             <input id="status" type="text" formControlName="status" class="form-control" [value]="currAccount?.status">
+            <div *ngIf="EditAccountForm.controls.status.invalid && (EditAccountForm.controls.status.touched || EditAccountForm.controls.status.dirty)">
+              <div class="alert alert-danger">
+                Please enter a status
+              </div>
+            </div>
+
+            <div *ngIf="editError" class="alert alert-danger text-center mt-3">
+              There was an error submitting the form
+            </div>
 
             <div class="modal-footer">
                 <button #closeButton type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!EditAccountForm.valid">Save changes</button>
             </div>
             
           </form>
@@ -90,16 +109,35 @@
 
             <label for="accountType" class="form-label">Account Type</label>
             <input id="accountType" type="text" formControlName="accountType" class="form-control">
+            <div *ngIf="NewAccountForm.controls.accountType.invalid && (NewAccountForm.controls.accountType.touched || NewAccountForm.controls.accountType.dirty)">
+              <div class="alert alert-danger">
+                Please enter an account type
+              </div>
+            </div>
 
             <label for="currAmount" class="form-label">Current Amount</label>
-            <input id="currAmount" type="number" formControlName="currAmount" class="form-control">
+            <input id="currAmount" type="number" formControlName="currAmount" class="form-control" min="0">
+            <div *ngIf="NewAccountForm.controls.currAmount.invalid && (NewAccountForm.controls.currAmount.touched || NewAccountForm.controls.currAmount.dirty)">
+              <div class="alert alert-danger">
+                Please enter an amount
+              </div>
+            </div>
 
             <label for="status" class="form-label">Status</label>
             <input id="status" type="text" formControlName="status" class="form-control">
+            <div *ngIf="NewAccountForm.controls.status.invalid && (NewAccountForm.controls.status.touched || NewAccountForm.controls.status.dirty)">
+              <div class="alert alert-danger">
+                Please enter a status
+              </div>
+            </div>
+
+            <div *ngIf="createError" class="alert alert-danger text-center mt-3">
+              There was an error submitting the form
+            </div>
 
             <div class="modal-footer">
                 <button #closeButton2 type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Create Account</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!NewAccountForm.valid">Create Account</button>
             </div>
             
           </form>
